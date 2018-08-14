@@ -247,6 +247,56 @@
                 "id": {"location": "uri"}
                 },
             "responseClass": "CSD\\Marketo\\Response\\ApproveEmailResponse"
+        },
+        "getFolderByName": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/folder/byName.json",
+            "parameters": {
+                "name": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetFolderByNameResponse"
+        },
+        "getFolders": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/folders.json",
+            "parameters": {
+                "workSpace": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetFoldersResponse"
+        },
+        "getPrograms": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/programs.json",
+            "parameters": {
+                "maxReturn": {"location": "query"},
+                "offset": {"location": "query"},
+                "filterType": {"location": "query"},
+                "filterValues": {"location": "query"},
+                "earliestUpdatedAt": {"location": "query"},
+                "latestUpdatedAt": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetProgramsResponse"
+        },
+        "getMyTokens": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/folder/{id}/tokens.json",
+            "parameters": {
+                "id": {"location": "uri"},
+                "folderType": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetMyTokensResponse"
+        },
+        "createOrUpdateMyTokens": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/folder/{id}/tokens.json",
+            "parameters": {
+                "id": {"location": "uri"},
+                "name": {"location": "query"},
+                "value": {"location": "query"},
+                "type": {"location": "query"},
+                "folderType": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\CreateOrUpdateMyTokensResponse"
         }
     }
 }

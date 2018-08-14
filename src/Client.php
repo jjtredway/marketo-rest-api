@@ -22,6 +22,7 @@ use Guzzle\Service\Description\ServiceDescription;
 use CSD\Marketo\Response\AddOrRemoveLeadsToListResponse;
 use CSD\Marketo\Response\AssociateLeadResponse;
 use CSD\Marketo\Response\CreateOrUpdateLeadsResponse;
+use CSD\Marketo\Response\CreateOrUpdateMyTokensResponse;
 use CSD\Marketo\Response\GetCampaignResponse;
 use CSD\Marketo\Response\GetCampaignsResponse;
 use CSD\Marketo\Response\GetLeadResponse;
@@ -29,7 +30,10 @@ use CSD\Marketo\Response\GetLeadPartitionsResponse;
 use CSD\Marketo\Response\GetLeadsResponse;
 use CSD\Marketo\Response\GetListResponse;
 use CSD\Marketo\Response\GetListsResponse;
+use CSD\Marketo\Response\GetMyTokensResponse;
+use CSD\Marketo\Response\GetProgramsResponse;
 use CSD\Marketo\Response\IsMemberOfListResponse;
+
 
 /**
  * Guzzle client for communicating with the Marketo.com REST API.
@@ -303,6 +307,7 @@ class Client extends GuzzleClient
      * @param string $filterValues Comma separated list of filter values
      * @param array  $fields       Array of field names to be returned in the response
      * @param string $nextPageToken
+     * 
      * @link http://developers.marketo.com/documentation/rest/get-multiple-leads-by-filter-type/
      *
      * @return GetLeadsResponse
@@ -593,9 +598,9 @@ class Client extends GuzzleClient
      * @param array  $args
      * @param bool   $returnRaw
      *
-     * @return GetPagingToken
      * @link http://developers.marketo.com/documentation/rest/get-paging-token/
      *
+     * @return GetPagingToken
      */
     public function getPagingToken($sinceDatetime, $args = array(), $returnRaw = false)
     {
@@ -611,11 +616,12 @@ class Client extends GuzzleClient
      * @param string|array $fields
      * @param array        $args
      * @param bool         $returnRaw
-     *
-     * @return GetLeadChanges
-     * @link http://developers.marketo.com/documentation/rest/get-lead-changes/
+     * 
      * @see  getPagingToken
      *
+     * @link http://developers.marketo.com/documentation/rest/get-lead-changes/
+     * 
+     * @return GetLeadChanges
      */
     public function getLeadChanges($nextPageToken, $fields, $args = array(), $returnRaw = false)
     {
@@ -683,6 +689,70 @@ class Client extends GuzzleClient
 
         return $this->getResult('approveEmailbyId', $args, false, $returnRaw);
     }
+
+    /**
+     * Get programs.
+     *
+     * @param string $filterType   One of the supported filter types, e.g. id, programId, folderID, workspace. See Marketo's documentation for all types.
+     * @param string $filterValues Comma separated list of filter values
+     * 
+     * @link http://developers.marketo.com/rest-api/endpoint-reference/asset-endpoint-reference/#!/Programs/browseProgramsUsingGET
+     *
+     * @return GetProgramsResponse
+     */
+    public function getPrograms($filterType, $filterValues, $returnRaw = false)
+    {
+        $args['filterType'] = $filterType;
+        $args['filterValues'] = $filterValues;
+
+        return $this->getResult('getPrograms', $args, false, $returnRaw);
+    }
+
+    /**
+     * Get Marketo "My Tokens".
+     *
+     * @param int    $id           Unique identifier of the folder.
+     * @param string $folderType   Either 'Folder' or 'Program'
+     * 
+     * @link http://developers.marketo.com/rest-api/endpoint-reference/asset-endpoint-reference/#!/Tokens/getTokensByFolderIdUsingGET
+     *
+     * @return GetMyTokensResponse
+     */
+    public function getMyTokens($id, $folderType = 'Folder', $returnRaw = false)
+    {
+        $args['id'] = $id;
+        $args['folderType'] = $folderType;
+
+        return $this->getResult('getMyTokens', $args, false, $returnRaw);
+    }
+
+    /**
+     * Calls the CreateOrUpdateLeads command with the given action.
+     *
+     * @param int    $id           ID of the folder (or program)
+     * @param string $name         Name of token
+     * @param string $value        Type of token
+     * @param string $type         Token data type (e.g. date, text, image, etc.)
+     * @param string $folderType   Either 'Folder' or 'Program'
+     *
+     * @link http://developers.marketo.com/rest-api/endpoint-reference/asset-endpoint-reference/#!/Tokens/addTokenTOFolderUsingPOST
+     *
+     * @return CreateOrUpdateMyTokensResponse
+     * $id, $name, $value, $type, $folderType, 
+     */
+    // private function createOrUpdateMyTokens($args = array(), $returnRaw = false)
+    // {
+    //     // $args['id'] = $id;
+    //     // $args['name'] = $name;
+    //     // $args['value'] = $value;
+    //     // $args['type'] = $type;
+    //     // $args['folderType'] = $folderType;
+
+    //     return $args;
+        
+
+    //     //return $this->getResult('createOrUpdateMyTokens', $args, false, $returnRaw);
+    // }
 
     /**
      * Internal helper method to actually perform command.
