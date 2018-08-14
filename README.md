@@ -6,7 +6,7 @@ Installation
 ----------------
 The recommended way of installing the client is via [Composer](http://getcomposer.org/). Simply run the following command to add the library to your composer.json file.
 
-    composer require jjtredway/marketo-rest-api
+    composer require jjtredway/wd-marketo-rest-api
 
 Setup
 ----------------
