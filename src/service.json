@@ -297,6 +297,17 @@
                 "folderType": {"location": "query"}
             },
             "responseClass": "CSD\\Marketo\\Response\\CreateOrUpdateMyTokensResponse"
+        },
+        "deleteMyTokens": {
+            "httpMethod": "POST",
+            "uri": "/rest/asset/v1/folder/{id}/tokens/delete.json",
+            "parameters": {
+                "id": {"location": "uri"},
+                "name": {"location": "query"},
+                "type": {"location": "query"},
+                "folderType": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\DeleteMyTokensResponse"
         }
     }
 }

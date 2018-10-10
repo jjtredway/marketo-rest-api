@@ -23,6 +23,7 @@ use CSD\Marketo\Response\AddOrRemoveLeadsToListResponse;
 use CSD\Marketo\Response\AssociateLeadResponse;
 use CSD\Marketo\Response\CreateOrUpdateLeadsResponse;
 use CSD\Marketo\Response\CreateOrUpdateMyTokensResponse;
+use CSD\Marketo\Response\DeleteMyTokensResponse;
 use CSD\Marketo\Response\GetCampaignResponse;
 use CSD\Marketo\Response\GetCampaignsResponse;
 use CSD\Marketo\Response\GetLeadResponse;
@@ -725,34 +726,6 @@ class Client extends GuzzleClient
 
         return $this->getResult('getMyTokens', $args, false, $returnRaw);
     }
-
-    /**
-     * Calls the CreateOrUpdateLeads command with the given action.
-     *
-     * @param int    $id           ID of the folder (or program)
-     * @param string $name         Name of token
-     * @param string $value        Type of token
-     * @param string $type         Token data type (e.g. date, text, image, etc.)
-     * @param string $folderType   Either 'Folder' or 'Program'
-     *
-     * @link http://developers.marketo.com/rest-api/endpoint-reference/asset-endpoint-reference/#!/Tokens/addTokenTOFolderUsingPOST
-     *
-     * @return CreateOrUpdateMyTokensResponse
-     * $id, $name, $value, $type, $folderType, 
-     */
-    // private function createOrUpdateMyTokens($args = array(), $returnRaw = false)
-    // {
-    //     // $args['id'] = $id;
-    //     // $args['name'] = $name;
-    //     // $args['value'] = $value;
-    //     // $args['type'] = $type;
-    //     // $args['folderType'] = $folderType;
-
-    //     return $args;
-        
-
-    //     //return $this->getResult('createOrUpdateMyTokens', $args, false, $returnRaw);
-    // }
 
     /**
      * Internal helper method to actually perform command.
