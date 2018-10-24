@@ -260,9 +260,19 @@
             "httpMethod": "GET",
             "uri": "/rest/asset/v1/folders.json",
             "parameters": {
-                "workSpace": {"location": "query"}
+                "root": {"location": "query"},
+                "maxDepth": {"location": "query"},
+                "maxReturn": {"location": "query"}
             },
             "responseClass": "CSD\\Marketo\\Response\\GetFoldersResponse"
+        },
+        "getChannels": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/channels.json",
+            "parameters": {
+                "maxReturn": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetChannelsResponse"
         },
         "getPrograms": {
             "httpMethod": "GET",
@@ -276,6 +286,17 @@
                 "latestUpdatedAt": {"location": "query"}
             },
             "responseClass": "CSD\\Marketo\\Response\\GetProgramsResponse"
+        },
+        "getProgramsByTag": {
+            "httpMethod": "GET",
+            "uri": "/rest/asset/v1/program/byTag.json",
+            "parameters": {
+                "maxReturn": {"location": "query"},
+                "offset": {"location": "query"},
+                "tagType": {"location": "query"},
+                "tagValue": {"location": "query"}
+            },
+            "responseClass": "CSD\\Marketo\\Response\\GetProgramsByTagResponse"
         },
         "getMyTokens": {
             "httpMethod": "GET",

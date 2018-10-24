@@ -26,6 +26,8 @@ use CSD\Marketo\Response\CreateOrUpdateMyTokensResponse;
 use CSD\Marketo\Response\DeleteMyTokensResponse;
 use CSD\Marketo\Response\GetCampaignResponse;
 use CSD\Marketo\Response\GetCampaignsResponse;
+use CSD\Marketo\Response\GetChannelsResponse;
+use CSD\Marketo\Response\GetFoldersResponse;
 use CSD\Marketo\Response\GetLeadResponse;
 use CSD\Marketo\Response\GetLeadPartitionsResponse;
 use CSD\Marketo\Response\GetLeadsResponse;
@@ -33,6 +35,7 @@ use CSD\Marketo\Response\GetListResponse;
 use CSD\Marketo\Response\GetListsResponse;
 use CSD\Marketo\Response\GetMyTokensResponse;
 use CSD\Marketo\Response\GetProgramsResponse;
+use CSD\Marketo\Response\GetProgramsByTagResponse;
 use CSD\Marketo\Response\IsMemberOfListResponse;
 
 
@@ -692,6 +695,42 @@ class Client extends GuzzleClient
     }
 
     /**
+     * Get folders.
+     *
+     * @param string $root         Parent folder reference.
+     * @param int    $maxDepth     Maximum folder depth to traverse. Default 2.
+     * @param int    $maxReturn    Maximum results to return. Default 20. Maximum 200.
+     * 
+     * @link http://developers.marketo.com/rest-api/endpoint-reference/asset-endpoint-reference/#!/Folders/getFolderUsingGET
+     *
+     * @return GetFoldersResponse
+     */
+    public function getFolders($root = '', $maxDepth = 2, $maxReturn = 20, $returnRaw = false)
+    {
+        $args['root'] = $root;
+        $args['maxDepth'] = $maxDepth;
+        $args['maxReturn'] = $maxReturn;
+
+        return $this->getResult('getFolders', $args, false, $returnRaw);
+    }
+
+    /**
+     * Get channels.
+     *
+     * @param int    $maxReturn    Maximum results to return. Default 20. Maximum 200.
+     * 
+     * @link http://developers.marketo.com/rest-api/endpoint-reference/asset-endpoint-reference/#!/Channels/getAllChannelsUsingGET
+     *
+     * @return GetChannelsResponse
+     */
+    public function getChannels($maxReturn = 20, $returnRaw = false)
+    {
+        $args['maxReturn'] = $maxReturn;
+
+        return $this->getResult('getChannels', $args, false, $returnRaw);
+    }
+
+    /**
      * Get programs.
      *
      * @param string $filterType   One of the supported filter types, e.g. id, programId, folderID, workspace. See Marketo's documentation for all types.
@@ -707,6 +746,24 @@ class Client extends GuzzleClient
         $args['filterValues'] = $filterValues;
 
         return $this->getResult('getPrograms', $args, false, $returnRaw);
+    }
+
+    /**
+     * Get programs by tag.
+     *
+     * @param string $tagType   One of the supported tag types.
+     * @param string $tagValue
+     * 
+     * @link http://developers.marketo.com/rest-api/endpoint-reference/asset-endpoint-reference/#!/Programs/getProgramListByTagUsingGET
+     *
+     * @return GetProgramsByTagResponse
+     */
+    public function getProgramsByTag($tagType, $tagValue, $returnRaw = false)
+    {
+        $args['tagType'] = $tagType;
+        $args['tagValue'] = $tagValue;
+
+        return $this->getResult('getProgramsByTag', $args, false, $returnRaw);
     }
 
     /**
