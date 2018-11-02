@@ -24,6 +24,24 @@ class GetCampaignsResponse extends Response
      */
     public function getCampaigns()
     {
-        return $this->getResult();
+        if ($this->isSuccess())
+        {
+            $result = $this->getResult();
+            return $result;
+        }
+        return null;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getCampaignList()
+    {
+        if ($this->isSuccess())
+        {
+            $programs = $this->getCampaigns();
+            return $programs;
+        }
+        return null;
     }
 }
